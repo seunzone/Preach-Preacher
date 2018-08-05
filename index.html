@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Preach Preacher</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">Key 1</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">Key 2</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">Key 3</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">Key 4</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">Drum Roll</span>
+    </div><br/>
+    <div data-key="72" class="key major-key">
+      <kbd>H</kbd>
+      Bonus<hr/>
+      <span class="sound">Praise Break</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/key1.mp3"></audio>
+  <audio data-key="83" src="sounds/key2.mp3"></audio>
+  <audio data-key="68" src="sounds/key3.mp3"></audio>
+  <audio data-key="70" src="sounds/key4.mp3"></audio>
+  <audio data-key="71" src="sounds/drum_roll.mp3"></audio>
+  <audio data-key="72" src="sounds/praise_break.mp3"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+<script>
+window.addEventListener('keydown', function(e){
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+  if(!audio) return;
+  audio.currentTime = 0;
+  audio.play();
+  key.classList.add('playing');
+});
+
+function removeTransition(e){
+  if(e.propertyName !== 'transform') return;
+  this.classList.remove('playing');
+}
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+</script>
+
+
+</body>
+</html>
